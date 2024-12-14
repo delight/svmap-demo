@@ -14,5 +14,14 @@ export const load = (async ({ params, fetch }) => {
 		});
 		return map;
 	};
-	return { values: converStringArrayToMapWithBooleanValues(await getDomains(params.id)) };
+
+	const convertStringArrayToRecordWithBooleanValues = (array: string[]) => {
+		const record: Record<string, boolean> = {};
+		array.forEach((item) => {
+			record[item] = true;
+		});
+		return record;
+	};
+
+	return { values: convertStringArrayToRecordWithBooleanValues(await getDomains(params.id)) };
 }) satisfies PageServerLoad;
